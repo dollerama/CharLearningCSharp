@@ -36,12 +36,21 @@ public class MyLog : MonoBehaviour
         int n = 0;
         foreach (string mylog in myLogQueue)
         {
-            if (n > myLogQueue.Count-19)
+            if (n > myLogQueue.Count)
             {
-                myLog += mylog;
+                if(n%2 == 0)
+                    myLog += $"<color=grey>{mylog}</color>";
+                else
+                    myLog += $"{mylog}";
             }
             n++;
         }
+    }
+
+    public void clear()
+    {
+        myLog = "";
+        myLogQueue.Clear();
     }
 
     private void Update()
