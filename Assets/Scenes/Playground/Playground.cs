@@ -13,12 +13,12 @@ public class Playground : MonoBehaviour
         if (int.TryParse(iT.text, out ret))
             return ret;
         else
-            return 0;
+            return 1;
     }
 
     public void codeToRun()
     {
-        examples.conditionals4(getI());
+        examples.loops5(getI());
     }
 }
 
@@ -136,37 +136,57 @@ public static class examples
         }
     }
 
-    public static void loops1()
+    public static void loops1(int tmp)
     {
-        for(int i=0; i < 5; i++)
+        for(int i=0; i < tmp; i++)
         {
             Debug.Log(i);
         }
     }
 
-    public static void loops2()
+    public static void loops2(int tmp)
     {
-        for (int i = 5; i > 0; i--)
+        for (int i = tmp; i > 0; i--)
         {
             Debug.Log(i);
         }
     }
 
-    public static void loops3()
+    public static void loops3(int tmp)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < tmp; i++)
         {
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < tmp; j++)
             {
                 Debug.Log($"i: {i}, j: {j}");
             }
         }
     }
 
-    public static void loopsPH()
+    public static void loops4(int tmp)
+    {
+        int r = Random.Range(0, tmp + 1);
+        while (r != tmp)
+        {
+            r = Random.Range(0, tmp + 1);
+            Debug.Log(r);
+        }
+    }
+
+    public static void loops5(int tmp)
+    {
+        int r = Random.Range(0, tmp + 1);
+        do
+        {
+            r = Random.Range(0, tmp + 1);
+            Debug.Log(r);
+        } while (r != tmp);
+    }
+
+    public static void loopsPH(int tmp)
     {
         string output = "";
-        int rows = 5;
+        int rows = tmp;
 
         for (int i = 1; i <= rows; i++)
         {
@@ -179,10 +199,10 @@ public static class examples
         }
     }
 
-    public static void loopsPF()
+    public static void loopsPF(int tmp)
     {
         string output = "";
-        int rows = 5;
+        int rows =tmp;
         int k = 0;
 
         for (int i = 1; i <= rows; i++)

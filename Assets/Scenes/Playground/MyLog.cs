@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public class MyLog : MonoBehaviour
 {
-    string myLog;
+    public string myLog;
     public Text logText;
-    Queue myLogQueue = new Queue();
+    public Queue myLogQueue = new Queue();
 
     void Start()
     {
@@ -36,7 +36,7 @@ public class MyLog : MonoBehaviour
         int n = 0;
         foreach (string mylog in myLogQueue)
         {
-            if (n > myLogQueue.Count)
+            if (n > myLogQueue.Count-20)
             {
                 if(n%2 == 0)
                     myLog += $"<color=grey>{mylog}</color>";
