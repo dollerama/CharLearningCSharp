@@ -18,7 +18,7 @@ public class Playground : MonoBehaviour
 
     public void codeToRun()
     {
-        examples.function3_4(getI());
+        
     }
 }
 
@@ -304,5 +304,52 @@ public static class examples
         //using return
         r = examples.function3(tmp);
         Debug.Log($"Now i = {r}");
+    }
+
+    public static void function5(int tmp = -256)
+    {
+        if(tmp == -256)
+        {
+            Debug.Log("Default");
+        }
+        else
+        {
+            Debug.Log($"i = {tmp}");
+        }
+    }
+}
+
+public class Character
+{
+    public string Name
+    {
+        get { return Name; }
+        set { Name = value; }
+    }
+
+    public int Strength
+    {
+        get{ return Strength; }
+        set{ Strength = value; }
+    }
+
+    public int Dex
+    {
+        get { return Dex; }
+        set { Dex = value; }
+    }
+
+    public int Agility
+    {
+        get { return Agility; }
+        set { Agility = value; }
+    }
+
+    public Character(string n, int s, int d, int a)
+    {
+        Name = n;
+        Strength = s;
+        Dex = d;
+        Agility = a;
     }
 }
