@@ -18,7 +18,7 @@ public class Playground : MonoBehaviour
 
     public void codeToRun()
     {
-        examples.loops5(getI());
+        examples.function3_4(getI());
     }
 }
 
@@ -136,6 +136,25 @@ public static class examples
         }
     }
 
+    public static void conditionals5(int tmp)
+    {
+        int i = tmp;
+        Debug.Log($"i = {i}");
+
+        if (i == 0)
+        {
+            Debug.Log("i is zero");
+        }
+        else if (i % 2 == 0)
+        {
+            Debug.Log("i is even");
+        }
+        else
+        {
+            Debug.Log("i is odd");
+        }
+    }
+
     public static void loops1(int tmp)
     {
         for(int i=0; i < tmp; i++)
@@ -183,6 +202,35 @@ public static class examples
         } while (r != tmp);
     }
 
+    public static void loops6(int tmp)
+    {
+        if (tmp > 1)
+        {
+            int[] ia = new int[tmp];
+            for (int i = 0; i < ia.Length; i++)
+                ia[i] = i;
+
+            int j = 0;
+            foreach (int i in ia)
+            {
+                int r = Random.Range(j, ia.Length - 1);
+                int i2 = i;
+                ia[j] = ia[r];
+                ia[r] = i2;
+                j++;
+            }
+
+            foreach (int i in ia)
+            {
+                Debug.Log(i);
+            }
+        }
+        else
+        {
+            Debug.Log("i too small");
+        }
+    }
+
     public static void loopsPH(int tmp)
     {
         string output = "";
@@ -222,5 +270,39 @@ public static class examples
             Debug.Log(output);
             output = "";
         }
+    }
+
+    public static void function1()
+    {
+        Debug.Log("Hi I'm your function code!");
+    }
+
+    public static int function2()
+    {
+        Debug.Log("I return an integer: 256.");
+        return 256;
+    }
+
+    public static int function3(int tmp)
+    {
+        Debug.Log($"i = {tmp++}");
+        return tmp;
+    }
+
+    public static void function4(ref int tmp)
+    {
+        Debug.Log($"i = {tmp++}");
+    }
+
+    public static void function3_4(int tmp)
+    {
+        //using a ref variable
+        int r = tmp;
+        examples.function4(ref r);
+        Debug.Log($"Now i = {r}");
+
+        //using return
+        r = examples.function3(tmp);
+        Debug.Log($"Now i = {r}");
     }
 }
