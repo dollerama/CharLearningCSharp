@@ -18,7 +18,7 @@ public class Playground : MonoBehaviour
 
     public void codeToRun()
     {
-        
+        examples.class4();
     }
 }
 
@@ -317,39 +317,218 @@ public static class examples
             Debug.Log($"i = {tmp}");
         }
     }
+
+    public static void class1()
+    {
+        Jewel jwl = new Jewel(jColor.Ruby, jSize.Medium, jRarity.Uncommon);
+        string value = string.Format("{0:n0}", jwl.getCashValue());
+
+        Debug.Log($"This {jwl.getDiscript()} Jewel is worth ... $"+value);
+    }
+
+    public static void class2()
+    {
+        Jewel jwl = new Jewel();
+        string value = string.Format("{0:n0}", jwl.getCashValue());
+
+        Debug.Log($"This {jwl.getDiscript()} Jewel is worth ... $" + value);
+    }
+
+    public static void class3()
+    {
+        Character gobby = new Goblin("Tim", "Im and very smart and capable goblin");
+
+        Debug.Log(gobby.Greet());
+    }
+
+    public static void class4()
+    {
+        Character hacker = new Hacker("Acid Wash", "I'm a vert smart and capable hack person");
+
+        Debug.Log(hacker.Greet());
+    }
 }
 
-public class Character
+public enum jColor
 {
-    public string Name
+    White,
+    Pink,
+    Ruby,
+    Emerald,
+    Saphire
+}
+
+public enum jSize
+{
+    Small,
+    Medium,
+    Large
+}
+
+public enum jRarity
+{
+    Uncommon,
+    Common,
+    Rare
+}
+
+public class Jewel
+{
+    private jColor color;
+    private jSize size;
+    private jRarity rarity;
+
+    public Jewel(jColor c, jSize s, jRarity r)
     {
-        get { return Name; }
-        set { Name = value; }
+        color = c; size = s; rarity = r;
     }
 
-    public int Strength
+    public Jewel()
     {
-        get{ return Strength; }
-        set{ Strength = value; }
+        randomizeC();
+        randomizeR();
+        randomizeS();
     }
 
-    public int Dex
+    public void randomizeS()
     {
-        get { return Dex; }
-        set { Dex = value; }
+        size = (jSize)Random.Range(0, 3);
     }
 
-    public int Agility
+    public void randomizeR()
     {
-        get { return Agility; }
-        set { Agility = value; }
+        rarity = (jRarity)Random.Range(0, 3);
     }
 
-    public Character(string n, int s, int d, int a)
+    public void randomizeC()
     {
-        Name = n;
-        Strength = s;
-        Dex = d;
-        Agility = a;
+        color = (jColor)Random.Range(0, 5);
+    }
+
+    public string getDiscript()
+    {
+        string ret = "";
+
+        switch (size)
+        {
+            case jSize.Small: ret += "small"; break;
+            case jSize.Medium: ret += "medium"; break;
+            case jSize.Large: ret += "large"; break;
+        }
+
+        switch (rarity)
+        {
+            case jRarity.Uncommon: ret += " uncommon"; break;
+            case jRarity.Common: ret += " common"; break;
+            case jRarity.Rare: ret += " rare"; break;
+        }
+
+        switch (color)
+        {
+            case jColor.Emerald: ret += " Emerald"; break;
+            case jColor.Pink: ret += " Crystal"; break;
+            case jColor.Ruby: ret += " Ruby"; break;
+            case jColor.Saphire: ret += " Saphire"; break;
+            case jColor.White: ret += " Ivory"; break;
+        }
+
+        return ret;
+    }
+
+    public int getCashValue()
+    {
+        int currenVal = 0;
+
+        switch(size)
+        {
+            case jSize.Small: currenVal = 10000; break;
+            case jSize.Medium: currenVal = 25000; break;
+            case jSize.Large: currenVal = 50000; break;
+        }
+
+        switch(color)
+        {
+            case jColor.Emerald: currenVal += 5250; break;
+            case jColor.Pink: currenVal += 2250; break;
+            case jColor.Ruby: currenVal += 12575; break;
+            case jColor.Saphire: currenVal += 17525; break;
+            case jColor.White: currenVal += 7275; break;
+        }
+
+        switch (rarity)
+        {
+            case jRarity.Uncommon: currenVal = Mathf.RoundToInt(currenVal*0.75f); break;
+            case jRarity.Common: currenVal = Mathf.RoundToInt(currenVal * 0.95f); break;
+            case jRarity.Rare: currenVal = Mathf.RoundToInt(currenVal * 1.25f); break;
+        }
+
+        return currenVal;
+    }
+}
+
+public abstract class Character
+{
+    public string name;
+    public string greeting;
+
+    public Character(string n, string g)
+    {
+        name = n;
+        greeting = g;
+    }
+
+    public abstract string Greet();
+}
+
+public class Goblin : Character
+{
+    public Goblin(string n, string g) : base(n, g)
+    {
+        name = n;
+        greeting = g;
+    }
+
+    public override string Greet()
+    {
+        return ($"{name} says {greeting}");
+    }
+}
+
+public class Hacker : Character
+{
+    public Hacker(string n, string g) : base(n, g)
+    {
+        name = obfuscate(n);
+        greeting = obfuscate(g);
+    }
+
+    private string obfuscate(string s)
+    {
+        string ret = s;
+        char[] arrC = ret.ToCharArray();
+        ret = "";
+
+        int length = Random.Range(3, 5);
+
+        for (int i = 0; i < length; i++)
+        {
+            int j = Random.Range(i+1, arrC.Length);
+            char swap = arrC[i];
+            arrC[i] = arrC[j];
+            arrC[j] = swap;
+            arrC[i] += '5';
+        }
+
+        foreach (char c in arrC)
+        {
+            ret += c;
+        }
+
+        return ret;
+    }
+
+    public override string Greet()
+    {
+        return ($"{name} says {greeting}");
     }
 }
