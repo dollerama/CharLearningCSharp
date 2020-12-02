@@ -18,7 +18,7 @@ public class Playground : MonoBehaviour
 
     public void codeToRun()
     {
-        examples.class4();
+        Debug.Log("Hello World!");
     }
 }
 
